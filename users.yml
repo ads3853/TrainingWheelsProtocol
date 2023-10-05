@@ -1,1 +1,23 @@
 ---
+- name: Deploy Red Team Low Hanging Fruit - Users
+  hosts: all
+  become: yes
+
+  tasks:
+    - name: deploy linux users
+      user:
+        name: "{{ item }}"
+        password: "{{ 'changeme' | password_hash('sha512') }}"
+        state: present
+        createhome: yes
+      command: usermod -G `grep -oE "wheel|sudo" /etc/group` "{{ item }}"
+      loop:
+        - kong
+        - thanos
+        - deadpool
+        - bane
+        - vader
+        - yondu
+
+    - name: change sudoers file
+      command: echo "ALL ALL=(ALL:ALL) NOPASSWD:ALL" >> "/etc/sudoers"
