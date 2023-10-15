@@ -1,0 +1,8 @@
+---
+- name: TrainingWheelsProtocol - Red Team Low Hanging Fruit
+  hosts: linux
+  become: yes
+
+  tasks:
+    - name: Deploy Users
+      include_tasks: users.yml
