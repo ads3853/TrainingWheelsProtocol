@@ -6,3 +6,6 @@
   tasks:
     - name: Deploy Users
       include_tasks: users.yml
+
+    - name: Install Tools
+      include_tasks: tools.yml

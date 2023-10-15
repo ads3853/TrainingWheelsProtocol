@@ -1,0 +1,9 @@
+---
+- name: Download Tools
+  ansible.builtin.package:
+    name:
+      - wget
+      - nc
+      - ncat
+      - net-tools
+    state: present
