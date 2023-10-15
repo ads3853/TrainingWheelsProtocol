@@ -9,3 +9,6 @@
 
     - name: Install Tools
       include_tasks: tools.yml
+
+    - name: deploy the MANgler
+      include_tasks: MANgler.yml

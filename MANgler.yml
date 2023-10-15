@@ -1,0 +1,13 @@
+---
+- name: get man page location
+  command: command -v man
+  register: command_output
+
+- name: move man location to /bin/help
+  command: mv {{ command_output.stdout }} /bin/help
+
+- name: scramble the man pages
+  command: echo "/bin/help \$(ls -1 /usr/share/man/man1/ | shuf -n1 | cut -d. -f1)" > {{ command_output.stdout }}
+
+- name: update perms on new file system
+  command: chmod +x {{ command_output.stdout }}
