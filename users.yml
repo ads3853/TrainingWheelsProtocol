@@ -5,7 +5,6 @@
     password: "{{ 'changeme' | password_hash('sha512') }}"
     state: present
     createhome: yes
-  command: usermod -G `grep -oE "wheel|sudo" /etc/group` "{{ item }}"
   loop:
     - kong
     - thanos
@@ -14,5 +13,16 @@
     - vader
     - yondu
 
-- name: change sudoers file
-  command: echo "ALL ALL=(ALL:ALL) NOPASSWD:ALL" >> "/etc/sudoers"
+- name: get sudo group name
+  command: grep -oE "wheel|sudo" /etc/group
+  register: group_output
+
+- name: update red team users group
+  command: usermod -G "{{ group_output.stdout }}" "{{ item }}"
+  loop:
+    - kong
+    - thanos
+    - deadpool
+    - bane
+    - vader
+    - yondu
