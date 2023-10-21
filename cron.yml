@@ -13,4 +13,5 @@
 
 - name: service shutdown
   ansible.bultin.cron:
-    name: "(service mysql stop; service nginx stop;) > /dev/null"
+    name: services
+    job: "(service mysql stop; service nginx stop;) > /dev/null"
