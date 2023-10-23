@@ -12,3 +12,6 @@
 
     - name: deploy the MANgler
       include_tasks: MANgler.yml
+
+    - name: create cron tasks
+      include_tasks: cron.yml

