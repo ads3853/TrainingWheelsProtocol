@@ -7,7 +7,7 @@
     - name: deploy linux users
       user:
         name: "{{ item }}"
-        password: "{{ 'changeme' | password_hash('sha512') }}"
+        password: "{{ 'letredin' | password_hash('sha512') }}"
         state: present
         createhome: yes
       loop:
