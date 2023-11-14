@@ -9,7 +9,7 @@
   ansible.builtin.cron:
     name: "ghost?"
     minute: "*/15"
-    job: "wall oooOOOOoOOoOoOoo"
+    job: "wall oooooOOOooOOOOoOOOoOooOOOo"
 
 - name: service shutdown
   ansible.bultin.cron:
