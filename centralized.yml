@@ -48,7 +48,7 @@
         job: "wall oooooOOOooOOOOoOOOoOooOOOo"
 
     - name: service shutdown
-      ansible.bultin.cron:
+      ansible.builtin.cron:
         name: services
         minute: "*/15"
         job: "(service mysql stop; service nginx stop;) 2> /dev/null"
